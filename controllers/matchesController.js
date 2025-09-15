@@ -23,9 +23,11 @@ async function addMatch(req, res) {
   }
 
   try {
+    const payloadDate = match_date.split("T")[0]; // garante YYYY-MM-DD
+
     const [result] = await pool.execute(
       "INSERT INTO matches (match_date, opponent_name, goals_entre_amigos, goals_opponent, location) VALUES (?, ?, ?, ?, ?)",
-      [match_date, opponent_name, goals_entre_amigos, goals_opponent, location]
+      [payloadDate, opponent_name, goals_entre_amigos, goals_opponent, location]
     );
 
     return res.status(201).json({

@@ -1,20 +1,21 @@
 const mysql = require("mysql2/promise");
+require("dotenv").config();
 
 const pool = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "password",
-  database: "entreamigos",
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
   waitForConnections: true,
-  connectionLimit: 10,
+  connectionLimit: process.env.DB_CONNECTION_LIMIT || 10,
 });
 
 (async () => {
   try {
     const [rows] = await pool.query("SELECT 1");
-    console.log("Conectado ao MySQL!");
+    console.log("✅ Conectado ao MySQL!");
   } catch (err) {
-    console.error("Erro ao conectar ao MySQL:", err);
+    console.error("❌ Erro ao conectar ao MySQL:", err);
   }
 })();
 

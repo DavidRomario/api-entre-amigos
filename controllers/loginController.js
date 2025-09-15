@@ -4,8 +4,8 @@ async function loginAdmin(req, res) {
   const { user, password } = req.body;
 
   try {
-    const adminUser = "entreamigos";
-    const adminPassword = "entreamigos2021";
+    const adminUser = process.env.ADMIN_USER;
+    const adminPassword = process.env.ADMIN_PASSWORD;
 
     if (user === adminUser && password === adminPassword) {
       const token = await tokenJwt.create({ user: adminUser, role: "admin" });

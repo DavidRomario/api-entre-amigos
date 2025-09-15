@@ -24,7 +24,7 @@ app.use("/login", loginRouter);
 app.use("/users", userRouter);
 app.use("/matches", matchesRouter);
 
-var PORT = 3000;
+var PORT = process.env.PORT || 3000;
 app.listen(PORT, function () {
-  console.log(`🚀 Servidor rodando em http://localhost:${PORT}`);
+  console.log(`🚀 Servidor rodando na porta ${PORT}`);
 });

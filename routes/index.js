@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-const pool = require("../data.base"); // caminho do seu data.base.js
+const pool = require("../config/database"); // caminho do seu data.base.js
 
 /* Rota principal */
 router.get("/", function (req, res, next) {

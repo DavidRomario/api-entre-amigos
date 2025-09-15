@@ -23,7 +23,7 @@ async function addMatch(req, res) {
   }
 
   try {
-    const payloadDate = match_date.split("T")[0]; // garante YYYY-MM-DD
+    const payloadDate = match_date.split("T")[0];
 
     const [result] = await pool.execute(
       "INSERT INTO matches (match_date, opponent_name, goals_entre_amigos, goals_opponent, location) VALUES (?, ?, ?, ?, ?)",
@@ -141,12 +141,16 @@ async function deleteMatch(req, res) {
 async function getAllMatches(req, res) {
   try {
     const [matches] = await pool.execute("SELECT * FROM matches");
-    const total = matches.length;
+
+    const formatted = matches.map((m) => ({
+      ...m,
+      match_date: m.match_date.toISOString().split("T")[0],
+    }));
 
     return res.status(200).json({
       success: true,
-      total,
-      matches,
+      total: formatted.length,
+      matches: formatted,
     });
   } catch (error) {
     console.error("Erro ao buscar partidas:", error);
